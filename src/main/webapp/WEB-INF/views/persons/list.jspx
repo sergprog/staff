@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:jsp="http://java.sun.com/JSP/Page"
+     xmlns:c="http://java.sun.com/jsp/jstl/core"
+     xmlns:spring="http://www.springframework.org/tags"
+     version="2.0" xmlns:joda="http://www.joda.org/joda/time/tags" xmlns:fmt="http://java.sun.com/jsp/jstl/fmt">
+
+    <style type="text/css">
+        td a {
+            display: block;
+        }
+    </style>
+    <script>
+        $(document).ready(function(){
+        $('#myTable').DataTable();
+        });
+    </script>
+
+    <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+    <jsp:output omit-xml-declaration="yes"/>
+
+    <spring:message code="label_person_id" var="labelPersonId"/>
+    <spring:message code="label_person_list" var="labelPersonList"/>
+    <spring:message code="label_person_first_name" var="labelPersonFirstName"/>
+    <spring:message code="label_person_patronymic" var="labelPersonPatronymic"/>
+    <spring:message code="label_person_last_name" var="labelPersonLastName"/>
+    <spring:message code="label_person_birth_date" var="labelPersonBirthDate"/>
+    <spring:message code="label_person_department" var="labelPersonDepartment"/>
+    <spring:message code="label_person_position" var="labelPersonPosition"/>
+    <spring:message code="date_format_pattern" var="dateFormatPattern"/>
+
+
+    <spring:url value="/persons" var="showPersonUrl" />
+
+    <h2>${labelPersonList}</h2>
+
+<c:if test="${not empty persons}">
+    <table id="myTable">
+        <thead>
+        <tr>
+            <th width="40">${labelPersonLastName}</th>
+            <th width="40">${labelPersonFirstName}</th>
+            <th width="60">${labelPersonPatronymic}</th>
+            <th width="auto">${labelPersonDepartment}</th>
+            <th width="60">${labelPersonPosition}</th>
+            <th width="60">${labelPersonBirthDate}</th>
+        </tr>
+        </thead>
+        <tbody>
+        <c:forEach items="${persons}" var="person">
+            <tr onclick="myWin('http://localhost:8080/persons')">
+                <td><a href="${showPersonUrl}/${person.id}">${person.lastName}</a></td>
+                <td><a href="${showPersonUrl}/${person.id}">${person.firstName}</a></td>
+                <td><a href="${showPersonUrl}/${person.id}">${person.patronymic}</a></td>
+                <td><a href="${showPersonUrl}/${person.id}">${person.department}</a></td>
+                <td><a href="${showPersonUrl}/${person.id}">${person.position}</a></td>
+                <td><a href="${showPersonUrl}/${person.id}"><fmt:formatDate value="${person.birthDate}" pattern="${dateFormatPattern}"/></a></td>
+            </tr>
+        </c:forEach>
+        </tbody>
+    </table>
+</c:if>
+</div>

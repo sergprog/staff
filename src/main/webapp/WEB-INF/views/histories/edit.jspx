@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+
+<div xmlns:jsp="http://java.sun.com/JSP/Page"
+     xmlns:spring="http://www.springframework.org/tags"
+     xmlns:form="http://www.springframework.org/tags/form"
+     version="2.0">
+
+    <script type="text/javascript">
+        $(function () {
+            $('#whenDate').datepicker({
+                dateFormat: 'yy mm dd',
+                changeYear: true
+            });
+
+            $("#rec").ckeditor(
+                    {
+                        toolbar: 'Basic',
+                        uiColor: '#CCCCCC'
+                    }
+            );
+        });
+    </script>
+
+    <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+    <jsp:output omit-xml-declaration="yes"/>
+
+    <spring:message code="label_person_new" var="labelpersonNew"/>
+    <spring:message code="label_person_update" var="labelpersonUpdate"/>
+    <spring:message code="label_person_first_name" var="labelpersonFirstName"/>
+    <spring:message code="label_person_patronymic" var="labelPersonPatronymic"/>
+    <spring:message code="label_person_last_name" var="labelpersonLastName"/>
+    <spring:message code="label_person_birth_date" var="labelpersonBirthDate"/>
+    <spring:message code="label_person_description" var="labelpersonDescription"/>
+    <spring:message code="label_person_photo" var="labelPersonPhoto"/>
+    <spring:message code="label_history_id" var="labelHistoryId"/>
+    <spring:message code="label_history_rec" var="labelHistoryRec"/>
+    <spring:message code="label_history_list" var="labelHistoryList"/>
+    <spring:message code="label_history_when_date" var="labelHistoryWhenDate"/>
+    <spring:message code="label_person_last_name" var="labelPersonLastName"/>
+    <spring:message code="date_format_pattern" var="dateFormatPattern"/>
+    <spring:message code="label_history_update" var="labelHisoryUpdate"/>
+    <spring:message code="label_history_delete" var="labelHisoryDelete"/>
+    <spring:message code="label_history_new" var="labelHisoryNew"/>
+    <spring:message code="label_person_id" var="labelPersonId"/>
+    <spring:message code="label_save" var="labelSave"/>
+    <spring:message code="label_reset" var="labelReset"/>
+
+
+    <spring:eval expression="history.id == null ? labelHisoryNew:labelHisoryUpdate"
+                 var="formTitle"/>
+
+    <h1>${formTitle}</h1>
+
+    <div id="historyUpdate">
+        <form:form modelAttribute="history" id="historyUpdateForm" method="post">
+
+            <form:hidden path="person.id"/>
+            <form:hidden path="id"/>
+
+            <form:label path="whenDate">
+                ${labelHistoryWhenDate}*
+            </form:label>
+            <form:input path="whenDate" id="whenDate"/>
+            <div>
+                <form:errors path="whenDate" cssClass="error"/>
+            </div>
+            <p/>
+
+            <form:label path="rec">
+                ${labelHistoryRec}*
+            </form:label>
+            <form:textarea cols="60" rows="8" path="rec" id="rec"/>
+            <div>
+                <form:errors path="rec" cssClass="error"/>
+            </div>
+            <p/>
+
+            <button type="submit" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only">
+                <span class="ui-button-text">${labelSave}</span>
+            </button>
+
+            <button type="reset" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only">
+                <span class="ui-button-text">${labelReset}</span>
+            </button>
+
+        </form:form>
+    </div>
+</div>
+
+

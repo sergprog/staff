@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+
+<div xmlns:jsp="http://java.sun.com/JSP/Page"
+     xmlns:c="http://java.sun.com/jsp/jstl/core"
+     xmlns:spring="http://www.springframework.org/tags"
+     xmlns:form="http://www.springframework.org/tags/form"
+     version="2.0">
+
+    <script type="text/javascript">
+        $(function () {
+            $('#birthDate').datepicker({
+                dateFormat: 'yy mm dd',
+                changeYear: true
+            });
+
+            $("#personDescription").ckeditor(
+                    {
+                        toolbar: 'Basic',
+                        uiColor: '#CCCCCC'
+                    }
+            );
+        });
+    </script>
+
+    <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+    <jsp:output omit-xml-declaration="yes"/>
+
+    <spring:message code="label_person_new" var="labelpersonNew"/>
+    <spring:message code="label_person_update" var="labelpersonUpdate"/>
+    <spring:message code="label_person_first_name" var="labelpersonFirstName"/>
+    <spring:message code="label_person_patronymic" var="labelPersonPatronymic"/>
+    <spring:message code="label_person_last_name" var="labelpersonLastName"/>
+    <spring:message code="label_person_birth_date" var="labelpersonBirthDate"/>
+    <spring:message code="label_person_description" var="labelpersonDescription"/>
+    <spring:message code="label_person_department" var="labelPersonDepartment"/>
+    <spring:message code="label_person_position" var="labelPersonPosition"/>
+    <spring:message code="label_person_photo" var="labelPersonPhoto"/>
+    <spring:message code="label_save" var="labelSave"/>
+    <spring:message code="label_reset" var="labelReset"/>
+
+    <spring:eval expression="person.id == null ? labelpersonNew:labelpersonUpdate"
+                 var="formTitle"/>
+
+    <h1>${formTitle}</h1>
+
+    <div id="personUpdate">
+        <form:form modelAttribute="person" id="personUpdateForm" method="post" enctype="multipart/form-data">
+
+            <c:if test="${not empty message}">
+                <div id="message" class="${message.type}">${message.message}</div>
+            </c:if>
+
+            <form:label path="lastName">
+                ${labelpersonLastName}*
+            </form:label>
+
+            <form:input path="lastName"/>
+            <div>
+                <form:errors path="lastName" cssClass="error"/>
+            </div>
+            <p/>
+
+            <form:label path="firstName">
+                ${labelpersonFirstName}*
+            </form:label>
+            <form:input path="firstName"/>
+            <div>
+                <form:errors path="firstName" cssClass="error"/>
+            </div>
+            <p/>
+
+            <form:label path="patronymic">
+                ${labelPersonPatronymic}*
+            </form:label>
+            <form:input path="patronymic"/>
+            <div>
+                <form:errors path="patronymic" cssClass="error"/>
+            </div>
+            <p/>
+
+            <form:label path="birthDate">
+                ${labelpersonBirthDate}
+            </form:label>
+            <form:input path="birthDate" id="birthDate"/>
+            <div>
+                <form:errors path="birthDate" cssClass="error"/>
+            </div>
+            <p/>
+
+            <form:label path="department">
+                ${labelPersonDepartment}
+            </form:label>
+            <form:select path="department" name="department" id="personDepartment">
+                <form:option value="IT Department">IT Department</form:option>
+                <form:option value="QA Department">QA Department</form:option>
+                <form:option value="Sales Department">Sales Department</form:option>
+                <form:option value="HR Department">HR Department</form:option>
+                <form:option value="Development Department">Development Department</form:option>
+            </form:select>
+
+
+            <div>
+                <form:errors path="department" cssClass="error"/>
+            </div>
+            <p/>
+
+            <form:label path="position">
+                ${labelPersonPosition}
+            </form:label>
+            <form:select path="position" name="position" id="personPosition">
+                <form:option value="Software Engineer">Software Engineer</form:option>
+                <form:option value="Integration Specialist">Integration Specialist</form:option>
+                <form:option value="Pre-Sales Support">Pre-Sales Support</form:option>
+                <form:option value="ВSenior Javascript Developer">Senior Javascript Developer</form:option>
+                <form:option value="Support Engineer">Support Engineer</form:option>
+                <form:option value="Team Leader">Team Leader</form:option>
+                <form:option value="Developer">Developer</form:option>
+                <form:option value="Sales Assistant">Sales Assistant</form:option>
+                <form:option value="Office Manager">	Office Manager</form:option>
+                <form:option value="Director">Director</form:option>
+                <form:option value="Systems Administrator">Systems Administrator</form:option>
+            </form:select>
+
+            <div>
+                <form:errors path="position" cssClass="error"/>
+            </div>
+            <p/>
+
+            <form:label path="description">
+                ${labelpersonDescription}
+            </form:label>
+            <form:textarea cols="60" rows="8" path="description" id="personDescription"/>
+            <div>
+                <form:errors path="description" cssClass="error"/>
+            </div>
+            <p/>
+
+            <label for="file">
+                ${labelPersonPhoto}
+            </label>
+            <input name="file" type="file"/>
+            <p/>
+
+            <button type="submit" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only">
+                <span class="ui-button-text">${labelSave}</span>
+            </button>
+
+            <button type="reset" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only">
+                <span class="ui-button-text">${labelReset}</span>
+            </button>
+
+        </form:form>
+    </div>
+</div>
+
